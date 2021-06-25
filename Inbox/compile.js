@@ -20,7 +20,7 @@ var input = {
         }
     }
 }; 
-//console.log(JSON.parse(solc.compile(JSON.stringify(input))));
+console.log(JSON.parse(solc.compile(JSON.stringify(input))));
 
 output = JSON.parse(solc.compile(JSON.stringify(input)));
 
