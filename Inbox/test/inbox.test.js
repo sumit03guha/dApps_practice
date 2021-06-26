@@ -20,8 +20,7 @@ beforeEach(async () => {
 })
 
 describe('Inbox' , () => {
-    it('Checking account address' , () => {
-        //the account addresses are ok
+    it('Checking deployed address' , () => {
         assert.ok(inbox.options.address);
     })
 
