@@ -20,8 +20,19 @@ beforeEach(async () => {
 })
 
 describe('Inbox' , () => {
-    it('name' , () => {
-        //the account addresses are apt
+    it('Checking account address' , () => {
+        //the account addresses are ok
         assert.ok(inbox.options.address);
+    })
+
+    it('Checking getter method' , async () => {
+        message = await inbox.methods.getMessage().call();
+        assert.equal(message , 'Hello!');
+    })
+
+    it('Checking setter method' , async () => {
+        await inbox.methods.setMessage('Bye!').send({from : accounts[0] , gas : '1000000'});
+        message = await inbox.methods.getMessage().call();
+        assert.equal(message , 'Bye!');
     })
 })
