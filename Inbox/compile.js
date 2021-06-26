@@ -15,13 +15,13 @@ var input = {
     settings: {
         outputSelection: {
             '*': {
-                '*': ["*"]
+                '*': ['*']
             }
         }
     }
 }; 
 //console.log(JSON.parse(solc.compile(JSON.stringify(input))));
 
-output = JSON.parse(solc.compile(JSON.stringify(input)));
-
-module.exports = output.contracts['Inbox.sol'].Inbox;
+const compile = JSON.parse(solc.compile(JSON.stringify(input)));
+// console.log(output.contracts['Inbox.sol'].Inbox.evm.bytecode)
+module.exports = compile;
