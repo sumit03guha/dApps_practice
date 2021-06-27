@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -1,15 +1,15 @@
-const truffle = require('@truffle/hdwallet-provider');
-const Web3 = require('web3');
-const creds = require('./credentials');
+import truffle from '@truffle/hdwallet-provider';
+import Web3 from 'web3';
+import creds from './credentials.js';
 const mnemonic = creds.mnemonicPhrase;
 const providerOrUrl = creds.url;
 
 const provider = new truffle(mnemonic , providerOrUrl);
-web3 = new Web3(provider);
+const web3 = new Web3(provider);
 
-const compile_contract = require('./compile.js');
-const interface_abi = compile_contract.contracts['Inbox.sol'].Inbox.abi;
-const bytecode = compile_contract.contracts['Inbox.sol'].Inbox.evm.bytecode.object;
+import compile from './compile.js';
+const interface_abi = compile.contracts['Inbox.sol'].Inbox.abi;
+const bytecode = compile.contracts['Inbox.sol'].Inbox.evm.bytecode.object;
 
 const deploy = async () => {
     const accounts = await web3.eth.getAccounts();

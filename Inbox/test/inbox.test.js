@@ -1,11 +1,11 @@
-const ganache = require('ganache-cli');
-const mocha = require('mocha');
-const assert = require('assert');
-const Web3 = require('web3');
-provider = ganache.provider();
+import ganache from 'ganache-cli';
+import assert from 'assert';
+import mocha  from 'mocha';
+import Web3 from 'web3';
+const provider = ganache.provider();
 const web3 = new Web3(provider);
 
-const compile_contract = require('../compile.js');
+import compile_contract from '../compile.js';
 const interface_abi = compile_contract.contracts['Inbox.sol'].Inbox.abi;
 const bytecode = compile_contract.contracts['Inbox.sol'].Inbox.evm.bytecode.object;
 
@@ -25,13 +25,13 @@ describe('Inbox' , () => {
     })
 
     it('Checking getter method' , async () => {
-        message = await inbox.methods.getMessage().call();
+        const message = await inbox.methods.getMessage().call();
         assert.equal(message , 'Hello!');
     })
 
     it('Checking setter method' , async () => {
         await inbox.methods.setMessage('Bye!').send({from : accounts[0] , gas : '1000000'});
-        message = await inbox.methods.getMessage().call();
+        const message = await inbox.methods.getMessage().call();
         assert.equal(message , 'Bye!');
     })
 })
