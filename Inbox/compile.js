@@ -23,5 +23,4 @@ var input = {
 //console.log(JSON.parse(solc.compile(JSON.stringify(input))));
 
 const compile = JSON.parse(solc.compile(JSON.stringify(input)));
-// console.log(output.contracts['Inbox.sol'].Inbox.evm.bytecode)
 module.exports = compile;
