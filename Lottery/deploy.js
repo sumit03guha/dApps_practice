@@ -18,6 +18,7 @@ const deploy = async () => {
     const lottery = await new web3.eth.Contract(interface_abi)
     .deploy({data : bytecode}).send({from : accounts[3]});
 
+    console.log(interface_abi);
     console.log("account address : " , accounts[3]);
     console.log("contract deployed from : " , lottery.options.address);
 }
