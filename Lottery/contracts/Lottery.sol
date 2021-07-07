@@ -3,7 +3,7 @@ pragma solidity >=0.8.4;
 
 contract Lottery {
     
-    address public manager;
+    address private manager;
     address[] public players;
     
     constructor () {
@@ -15,6 +15,10 @@ contract Lottery {
         _;
     }
     
+    function getManager() public view returns(address) {
+        return manager;
+    }
+
     function register() public payable{
         require(msg.value > 0.01 ether);
         players.push(msg.sender);
