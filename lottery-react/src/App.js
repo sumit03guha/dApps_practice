@@ -34,26 +34,28 @@ function App() {
   
   const loadBlockchain = async () => {
     const web3 = new Web3(window.ethereum);
-    const contract1 = await new web3.eth.Contract(ABI , address);
-    setContract(contract1);
-    console.log(await new web3.eth.Contract(ABI , address).methods);
+    const contract = await new web3.eth.Contract(ABI , address);
+    setContract(contract);
+    console.log(contract.methods);
     // the methods are showing up perfectly but whenever I access the getManager as shown in the managerAddress below it gives the error as shown
     // in the image.
     console.log("contract loaded");
   } 
 
   const managerAddress = async () => {
-    const manager1 = await contract.methods.getManager().call(); // THIS IS WHERE THE ERROR OCCURS.
-    setManager(manager1); 
+    const manager = await contract.methods.getManager().call(); // THIS IS WHERE THE ERROR OCCURS.
+    setManager(manager); 
     console.log(manager);  
   }
 
   useEffect(()=>{
-    loadweb3();
-    loadBlockchain();
-    console.log('1');    
-    managerAddress();
-    console.log('component mounted!'); 
+    (async () => {
+      await loadweb3();
+      await loadBlockchain();
+      console.log('1');    
+      await managerAddress();
+      console.log('component mounted!');
+    })()
   },[])
 
   return (
