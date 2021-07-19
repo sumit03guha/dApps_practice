@@ -5,13 +5,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
+import React from 'react';
 
 const ABI = lottery.abi;
 const address = lottery.address;
 
 function App() {
-  const [manager , setManager] = useState();
-  const [contract , setContract] = useState();
+  const [manager , setManager] = useState(null);
+  const [contract , setContract] = useState(null);
   
   const loadweb3 = async () => {
     const provider = await detectEthereumProvider();
@@ -33,10 +34,11 @@ function App() {
   }
   
   const loadBlockchain = async () => {
+    await window.ethereum.send('eth_requestAccounts');
     const web3 = new Web3(window.ethereum);
     const contract = await new web3.eth.Contract(ABI , address);
     setContract(contract);
-    console.log(contract.methods);
+    console.log(await contract.methods.getManager());
     // the methods are showing up perfectly but whenever I access the getManager as shown in the managerAddress below it gives the error as shown
     // in the image.
     console.log("contract loaded");
@@ -53,11 +55,23 @@ function App() {
       await loadweb3();
       await loadBlockchain();
       console.log('1');    
-      await managerAddress();
-      console.log('component mounted!');
+      // await managerAddress();
+      // console.log('component mounted!');
     })()
   },[])
 
+  useEffect(()=>{
+    (async () => {
+      // await loadweb3();
+      // await loadBlockchain();
+      if (contract != null) {
+        console.log('1');    
+        await managerAddress();
+        console.log('component mounted!');
+      }
+      })()
+  },[])
+  
   return (
     <div>
       <h2>Lottery contract</h2> 
