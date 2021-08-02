@@ -17,10 +17,10 @@ const bytecode = compiledFactoryContract.evm.bytecode.object;
 const deploy = async () => {
     const accounts = await web3.eth.getAccounts();
     console.log("account address : " , accounts[0]);
+    
     const factory = await new web3.eth.Contract(interface_abi)
     .deploy({data : bytecode}).send({from : accounts[0]});
 
-    
     console.log("contract deployed from : " , factory.options.address);
 }
 
