@@ -1,10 +1,4 @@
-// import { readFile } from 'fs/promises';
 import web3 from './web3';
-
-// const compiledFactoryContract = JSON.parse(
-//   await readFile('./build/FactoryKickstarter.json')
-// );
-
 import compiledFactoryContract from './build/FactoryKickstarter.json';
 
 const instance = new web3.eth.Contract(
