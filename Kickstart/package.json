@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
     "@truffle/hdwallet-provider": "^1.4.1",
     "fs-extra": "^10.0.0",
     "ganache-cli": "^6.12.2",

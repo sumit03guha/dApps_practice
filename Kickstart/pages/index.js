@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import instance from '../blockchain/factory';
+import Layout from '../components/Layout';
 
 const CampaignIndex = ({ campaigns }) => {
   // const [campaigns, setCampaigns] = useState();
@@ -17,11 +18,11 @@ const CampaignIndex = ({ campaigns }) => {
   console.log(campaigns);
 
   return (
-    <>
+    <Layout>
       <h3>Open Campaigns</h3>
+      <Button floated='right' content='Create Campaign' icon='add' primary />
       <RenderCampaigns campaigns={campaigns} />
-      <Button content='Create Campaign' icon='add' primary />
-    </>
+    </Layout>
   );
 };
 
