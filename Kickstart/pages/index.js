@@ -3,6 +3,7 @@ import { Card, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import instance from '../blockchain/factory';
 import Layout from '../components/Layout';
+import { Link } from '../routes';
 
 const CampaignIndex = ({ campaigns }) => {
   // const [campaigns, setCampaigns] = useState();
@@ -20,7 +21,16 @@ const CampaignIndex = ({ campaigns }) => {
   return (
     <Layout>
       <h3>Open Campaigns</h3>
-      <Button floated='right' content='Create Campaign' icon='add' primary />
+      <Link route='/campaigns/new'>
+        <a>
+          <Button
+            floated='right'
+            content='Create Campaign'
+            icon='add'
+            primary
+          />
+        </a>
+      </Link>
       <RenderCampaigns campaigns={campaigns} />
     </Layout>
   );
@@ -59,7 +69,12 @@ const RenderCampaigns = ({ campaigns }) => {
   const items = campaigns.map((address) => {
     return {
       header: address,
-      description: <a>View Campaign</a>,
+      //adding dynamic routing with the help of template string in the Link tag below. {/campaigns/:address}
+      description: (
+        <Link route={`/campaigns/${address}`}>
+          <a>View Campaign</a>
+        </Link>
+      ),
       fluid: true,
     };
   });

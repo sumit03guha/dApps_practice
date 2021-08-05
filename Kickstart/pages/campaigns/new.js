@@ -1,8 +1,11 @@
+// Page for creating the new Campaign by entering the minimumContribution.
+
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import 'semantic-ui-css/semantic.min.css';
 import { Form, Button, Input, Message } from 'semantic-ui-react';
 import factory from '../../blockchain/factory';
+import { Router } from '../../routes';
 
 const CampaignNew = () => {
   const [minimumContribution, setMinimumContribution] = useState('');
@@ -23,6 +26,7 @@ const CampaignNew = () => {
       await factory.methods
         .createKickstarter(minimumContribution)
         .send({ from: accounts[0] });
+      Router.pushRoute('/');
     } catch (err) {
       setError(err.message);
     }
