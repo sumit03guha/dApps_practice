@@ -1,11 +1,9 @@
 import truffle from '@truffle/hdwallet-provider';
 import Web3 from 'web3';
-import { readFile } from 'fs/promises';
+// import { readFile } from 'fs/promises';
 import creds from './credentials.js';
 
-const compiledFactoryContract = JSON.parse(
-  await readFile('./build/FactoryKickstarter.json')
-);
+import compiledFactoryContract from './build/FactoryKickstarter.json';
 
 const mnemonic = creds.mnemonicPhrase;
 const providerOrUrl = creds.url;

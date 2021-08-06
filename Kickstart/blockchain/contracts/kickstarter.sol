@@ -21,9 +21,9 @@ contract Kickstarter {
     struct Requests {
         string description;
         uint value;
-        address recepient;
+        address recipient;
         bool complete;
-        mapping(address => bool) approvals;
+        mapping(address => bool) approvers;
         uint approvalCount;
     }
     
@@ -53,7 +53,7 @@ contract Kickstarter {
         Requests storage newRequest = requests.push();
         newRequest.description = d;
         newRequest.value = v;
-        newRequest.recepient = r;
+        newRequest.recipient = r;
         newRequest.complete = false;
         newRequest.approvalCount = 0;
     }
@@ -61,20 +61,31 @@ contract Kickstarter {
     function approveRequest(uint index) public {
         Requests storage request = requests[index];
         require(contributors[msg.sender]);
-        require(!request.approvals[msg.sender]);
-        request.approvals[msg.sender] = true;
+        require(!request.approvers[msg.sender]);
+        request.approvers[msg.sender] = true;
         request.approvalCount++;
     }
     
     function finalizeRequest(uint index) public onlyManager {
         Requests storage request = requests[index];
         require(!request.complete);
-        request.complete = true;
         require(request.approvalCount > (contributorsCount / 2));
-        payable(request.recepient).transfer(request.value);
+        payable(request.recipient).transfer(request.value);
+        request.complete = true;
     }
     
-    function getTotalContribution() public view returns(uint) {
-        return address(this).balance;
+    function getSummary() public view returns (uint, uint, uint, uint, address) {
+        return (
+            minimumContribution,
+            address(this).balance,
+            requests.length,
+            contributorsCount,
+            manager
+            );
     }
+    
+    function getRequestsCount() public view returns (uint) {
+        return requests.length;
+    }
+
 }
