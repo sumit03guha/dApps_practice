@@ -6,16 +6,6 @@ import Layout from '../components/Layout';
 import { Link } from '../routes';
 
 const CampaignIndex = ({ campaigns }) => {
-  // const [campaigns, setCampaigns] = useState();
-
-  // useEffect(() => {
-  //   (async () => {
-  //     setCampaigns(await instance.methods.getDeployedAdresses().call());
-  //     console.log(campaigns, 1);
-  //   })();
-  //   console.log(campaigns, 2);
-  // }, []);
-
   console.log(campaigns);
 
   return (

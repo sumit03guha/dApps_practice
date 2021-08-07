@@ -13,7 +13,7 @@ const RenderCards = ({ summary }) => {
     contributorsCount: details[3],
     manager: details[4],
   };
-  console.log(balance);
+
   const items = [
     {
       header: card.manager,
@@ -51,7 +51,6 @@ const RenderCards = ({ summary }) => {
     if (card.balance) {
       setBalance(card.balance);
     }
-    console.log(balance);
   });
   return <Card.Group items={items} />;
 };

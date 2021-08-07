@@ -8,7 +8,6 @@ import RenderCards from './RenderCards';
 
 const CampaignShow = ({ address }) => {
   const [summary, setSummary] = useState('');
-
   const campaign = Campaign(address);
 
   useEffect(() => {
