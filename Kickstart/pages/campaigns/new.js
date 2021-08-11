@@ -33,9 +33,7 @@ const CampaignNew = () => {
     setLoading(false);
   };
 
-  //   const clickHandler = () => {
-  //     window.ethereum.request({ method: 'eth_requestAccounts' });
-  //   };
+  // useEffect \\
 
   return (
     <Layout>

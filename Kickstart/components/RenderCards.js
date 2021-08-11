@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Card } from 'semantic-ui-react';
-import web3 from '../../blockchain/web3';
+import web3 from '../blockchain/web3';
 
 const RenderCards = ({ summary }) => {
   const [balance, setBalance] = useState(0);

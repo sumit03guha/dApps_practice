@@ -1,17 +1,19 @@
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, Message } from 'semantic-ui-react';
 import { useState } from 'react';
 import Campaign from '../blockchain/campaign';
 import web3 from '../blockchain/web3';
+import { Router } from '../routes';
 
 const ContributeForm = ({ address }) => {
   const [value, setValue] = useState(null);
+  const campaign = Campaign(address);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
-    const campaign = Campaign(address);
+    setLoading(true);
 
     try {
       const accounts = await window.ethereum.request({
@@ -21,14 +23,19 @@ const ContributeForm = ({ address }) => {
       await campaign.methods
         .contribute()
         .send({ from: accounts[0], value: web3.utils.toWei(value, 'ether') });
+
+      Router.replace(`/campaigns/${address}`);
+      console.log(1234);
     } catch (err) {
-      setError(err);
+      setError(err.message);
       console.log(err);
     }
+    setLoading(false);
+    setValue('');
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} error={!!error}>
       <Form.Field>
         <label>Amount to Contribute </label>
         <Input
@@ -37,7 +44,10 @@ const ContributeForm = ({ address }) => {
           onChange={(event) => setValue(event.target.value)}
         />
       </Form.Field>
-      <Button primary>Contribute!</Button>
+      <Button primary loading={loading}>
+        Contribute!
+      </Button>
+      <Message error header='Oops!' content={error} />
     </Form>
   );
 };
