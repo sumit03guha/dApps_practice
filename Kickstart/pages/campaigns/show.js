@@ -20,7 +20,6 @@ const CampaignShow = ({ address }) => {
 
   useEffect(() => {
     camp();
-    console.log(2);
   }, []);
 
   return (
@@ -30,7 +29,6 @@ const CampaignShow = ({ address }) => {
         <Grid.Row>
           <Grid.Column width={12}>
             <RenderCards summary={{ summary }} />
-            {console.log(address)}
           </Grid.Column>
 
           <Grid.Column width={4}>

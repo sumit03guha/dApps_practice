@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import instance from '../blockchain/factory';
+import Factory from '../blockchain/factory';
 import Layout from '../components/Layout';
 import { Link } from '../routes';
 
@@ -27,7 +27,7 @@ const CampaignIndex = ({ campaigns }) => {
 };
 
 export async function getStaticProps() {
-  const campaigns = await instance.methods.getDeployedAdresses().call();
+  const campaigns = await Factory.methods.getDeployedAdresses().call();
 
   return {
     props: {
