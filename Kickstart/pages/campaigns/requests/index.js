@@ -11,7 +11,7 @@ const RequestsIndex = ({ address }) => {
   const { Header, Row, HeaderCell, Body } = Table;
   const campaign = Campaign(address);
   const [requestCount, setRequestCount] = useState();
-  const [requests, setRequests] = useState();
+  const [requests, setRequests] = useState([]);
 
   const getRequests = async () => {
     console.log(4);
@@ -30,6 +30,7 @@ const RequestsIndex = ({ address }) => {
           return campaign.methods.requests(index).call();
         })
     );
+    setRequests(r);
     console.log(typeof r);
   };
 
@@ -37,10 +38,10 @@ const RequestsIndex = ({ address }) => {
     console.log(1, typeof requests);
     getRequests();
     if (requestCount) {
-      req().then(setRequests(r));
+      req();
     }
     console.log(2, typeof requests);
-  }, [requests, requestCount]);
+  }, [requestCount]);
 
   return (
     <Layout>
