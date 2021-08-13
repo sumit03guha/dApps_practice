@@ -11,13 +11,14 @@ const RequestsIndex = ({ address }) => {
   const { Header, Row, HeaderCell, Body } = Table;
   const campaign = Campaign(address);
   const [requestCount, setRequestCount] = useState();
+  const [contributorsCount, setContributorsCount] = useState();
   const [requests, setRequests] = useState([]);
 
-  const getRequests = async () => {
-    console.log(4);
+  const getter = async () => {
     const count = await campaign.methods.getRequestsCount().call();
+    const count2 = await campaign.methods.contributorsCount().call();
     setRequestCount(count);
-    console.log(44);
+    setContributorsCount(count2);
   };
 
   let r;
@@ -31,24 +32,23 @@ const RequestsIndex = ({ address }) => {
         })
     );
     setRequests(r);
-    console.log(typeof r);
   };
 
   useEffect(() => {
-    console.log(1, typeof requests);
-    getRequests();
+    getter();
     if (requestCount) {
       req();
     }
-    console.log(2, typeof requests);
   }, [requestCount]);
 
   return (
     <Layout>
-      <h3>Requests List.</h3>
+      <h3>Requests List</h3>
       <Link route={`/campaigns/${address}/requests/new`}>
         <a>
-          <Button primary>Add Request</Button>
+          <Button primary floated='right' style={{ marginBottom: 10 }}>
+            Add Request
+          </Button>
         </a>
       </Link>
       <Table>
@@ -64,11 +64,14 @@ const RequestsIndex = ({ address }) => {
           </Row>
         </Header>
         <Body>
-          <Row>
-            <RequestRow requests={requests}></RequestRow>
-          </Row>
+          <RequestRow
+            requests={requests}
+            address={address}
+            contributorsCount={contributorsCount}
+          ></RequestRow>
         </Body>
       </Table>
+      <div>Found {requestCount} requests.</div>
     </Layout>
   );
 };

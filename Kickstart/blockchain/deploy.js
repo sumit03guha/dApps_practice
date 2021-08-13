@@ -1,6 +1,5 @@
 import truffle from '@truffle/hdwallet-provider';
 import Web3 from 'web3';
-// import { readFile } from 'fs/promises';
 import creds from './credentials.js';
 
 import compiledFactoryContract from './build/FactoryKickstarter.json';

@@ -44,7 +44,7 @@ contract Kickstarter {
     }
     
     function contribute() public payable{
-        require(msg.value > minimumContribution);
+        require(msg.value >= minimumContribution);
         contributors[msg.sender] = true;
         contributorsCount++;
     }
@@ -70,6 +70,7 @@ contract Kickstarter {
         Requests storage request = requests[index];
         require(!request.complete);
         require(request.approvalCount > (contributorsCount / 2));
+        require(address(this).balance >= request.value);
         payable(request.recipient).transfer(request.value);
         request.complete = true;
     }

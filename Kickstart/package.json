@@ -7,7 +7,6 @@
     "test": "mocha",
     "dev": "node server.js"
   },
-  
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -5,7 +5,7 @@ import web3 from '../blockchain/web3';
 import { Router } from '../routes';
 
 const ContributeForm = ({ address }) => {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   const campaign = Campaign(address);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,6 @@ const ContributeForm = ({ address }) => {
         .send({ from: accounts[0], value: web3.utils.toWei(value, 'ether') });
 
       Router.replace(`/campaigns/${address}`);
-      console.log(1234);
     } catch (err) {
       setError(err.message);
       console.log(err);
@@ -41,6 +40,7 @@ const ContributeForm = ({ address }) => {
         <Input
           label='ether'
           labelPosition='right'
+          value={value}
           onChange={(event) => setValue(event.target.value)}
         />
       </Form.Field>

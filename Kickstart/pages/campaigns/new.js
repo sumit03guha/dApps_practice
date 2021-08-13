@@ -6,6 +6,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { Form, Button, Input, Message } from 'semantic-ui-react';
 import factory from '../../blockchain/factory';
 import { Router } from '../../routes';
+import web3 from '../../blockchain/web3';
 
 const CampaignNew = () => {
   const [minimumContribution, setMinimumContribution] = useState('');
@@ -16,24 +17,21 @@ const CampaignNew = () => {
     event.preventDefault();
     setLoading(true);
     setError(null);
-    // const accounts = await web3.eth.getAccounts();
+    const min = web3.utils.toWei(minimumContribution, 'ether');
+
     try {
       const accounts = await window.ethereum.request({
         method: 'eth_accounts',
       });
       console.log(accounts);
 
-      await factory.methods
-        .createKickstarter(minimumContribution)
-        .send({ from: accounts[0] });
+      await factory.methods.createKickstarter(min).send({ from: accounts[0] });
       Router.pushRoute('/');
     } catch (err) {
       setError(err.message);
     }
     setLoading(false);
   };
-
-  // useEffect \\
 
   return (
     <Layout>
@@ -42,7 +40,7 @@ const CampaignNew = () => {
         <Form.Field>
           <label>Minimum Contribution</label>
           <Input
-            label='wei'
+            label='ether'
             labelPosition='right'
             placeholder='Enter the minimum contribution amount'
             value={minimumContribution}

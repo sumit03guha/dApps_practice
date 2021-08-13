@@ -5,6 +5,7 @@ import web3 from '../blockchain/web3';
 
 const RenderCards = ({ summary }) => {
   const [balance, setBalance] = useState(0);
+  const [minimumContribution, setMinimumContribution] = useState(0);
   const details = summary['summary'];
   const card = {
     minimumContribution: details[0],
@@ -23,10 +24,10 @@ const RenderCards = ({ summary }) => {
       style: { overflowWrap: 'break-word' },
     },
     {
-      header: card.minimumContribution,
+      header: web3.utils.fromWei(web3.utils.toBN(minimumContribution), 'ether'),
       description:
-        'You must contribute atleast this much amount of wei to become a contributor.',
-      meta: 'Minimum Contribution',
+        'You must contribute atleast this much amount of ether to become a contributor.',
+      meta: 'Minimum Contribution (in Ether)',
     },
     {
       header: card.requestsCount,
@@ -48,8 +49,9 @@ const RenderCards = ({ summary }) => {
   ];
 
   useEffect(() => {
-    if (card.balance) {
+    if (card.balance && card.minimumContribution) {
       setBalance(card.balance);
+      setMinimumContribution(card.minimumContribution);
     }
   });
   return <Card.Group items={items} />;
