@@ -1,19 +1,8 @@
 {
   "name": "lottery",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "type": "module",
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@truffle/hdwallet-provider": "^1.4.1",
-    "ganache-cli": "^6.12.2",
-    "mocha": "^9.0.2",
-    "solc": "^0.8.6",
-    "web3": "^1.4.0"
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "hardhat": "^2.10.2",
+    "hardhat-contract-sizer": "^2.6.1"
   }
 }
